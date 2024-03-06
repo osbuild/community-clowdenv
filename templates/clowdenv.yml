@@ -1,0 +1,50 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  name: community-clowdenv
+objects:
+  - apiVersion: cloud.redhat.com/v1alpha1
+    kind: ClowdEnvironment
+    metadata:
+      name: community-clowdenv
+    spec:
+      targetNamespace: community-clowdenv
+      providers:
+        web:
+          port: 8000
+          mode: operator
+        metrics:
+          port: 9000
+          mode: operator
+          path: "/metrics"
+        kafka:
+          mode: none
+        db:
+          mode: app-interface
+          caBundleURL: https://truststore.pki.rds.amazonaws.com/us-east-1/us-east-1-bundle.pem
+        logging:
+          mode: app-interface
+        objectStore:
+          mode: app-interface
+        inMemoryDb:
+          mode: redis
+        serviceMesh:
+          mode: disabled
+        sidecars:
+          tokenRefresher:
+            enabled: false
+        featureFlags:
+          mode: none
+          hostname: ""
+          port: 0
+          credentialRef:
+            name: ""
+            namespace: ""
+        pullSecrets: []
+      resourceDefaults:
+        limits:
+          cpu: 500m
+          memory: 512Mi
+        requests:
+          cpu: 250m
+          memory: 256Mi
