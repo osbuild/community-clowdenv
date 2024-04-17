@@ -6,9 +6,9 @@ objects:
   - apiVersion: cloud.redhat.com/v1alpha1
     kind: ClowdEnvironment
     metadata:
-      name: {$CLOWDENV_NAME}
+      name: ${CLOWDENV_NAME}
     spec:
-      targetNamespace: {$CLOWDENV_NAME}
+      targetNamespace: ${CLOWDENV_NAME}
       providers:
         web:
           port: 8000
